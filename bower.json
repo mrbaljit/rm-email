@@ -1,0 +1,8 @@
+{
+  "name": "rm-email",
+  "version": "0.0.1",
+  "ignore": [
+    "node_modules",
+    "src/bower_components"
+  ]
+}
