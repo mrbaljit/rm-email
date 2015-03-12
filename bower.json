@@ -1,8 +1,11 @@
 {
   "name": "rm-email",
+  "authors": [
+    "Baljit Singh"
+  ],
   "version": "0.0.5",
   "ignore": [
-    "node_modules",
-    "src/bower_components"
+    "**/.*",
+    "node_modules"
   ]
 }
