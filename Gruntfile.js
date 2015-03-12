@@ -1,7 +1,14 @@
 module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
+
+    var appConfig = {
+        app: 'rm-email',
+        dist: 'dist',
+        src: 'src'
+    };
     
     grunt.initConfig({
+        appConfig: appConfig,
         pkg: grunt.file.readJSON('package.json'),
 		
 		bowerInstall : {
@@ -9,9 +16,9 @@ module.exports = function(grunt) {
         },		
 		concat: {
 				// concat task configuration goes here.
-              emailjs : {
-                src : [ 'src/*.js'],
-                dest : 'dist/email.generated.js'
+              js : {
+                src : [ '<%= appConfig.src %>/*.js', '<%= appConfig.dist %>/rm-email.tpls.js'],
+                dest : '<%= appConfig.dist %>/rm-email.tpls.js'
             }				
 		},
 		 uglify: {
@@ -23,6 +30,16 @@ module.exports = function(grunt) {
                 src : [ 'dist/*' ]
             }
        },
+        html2js: {
+            options: {
+                base: '',
+                module: 'rm.email.tpls'
+            },
+            main: {
+                src: ['<%= appConfig.src %>/**/*.html'],
+                dest: '<%= appConfig.dist %>/rm-email.tpls.js'
+            }
+        },
 	   copy: {
 			 main : {
 				 files : [{
@@ -62,10 +79,16 @@ module.exports = function(grunt) {
     });
 
     //Custom defined tasks
-    grunt.registerTask('default', ['build']);
-    grunt.registerTask('build',  ['clean:dist', 'copy']);
+    grunt.registerTask('default', ['compile']);
+    //grunt.registerTask('build',  ['clean:dist', 'copy']);
 	
     // concat step 'generates' the js to the dist folder
-    grunt.registerTask('cleanBump', [ 'clean:dist', 'concat:emailjs', 'gitadd', 'bump' ]);
+    grunt.registerTask('cleanBump', [ 'gitadd', 'bump' ]);
+
+    grunt.registerTask('compile', [
+        'clean',
+        'html2js',
+        'concat'
+    ]);
 	
 };
