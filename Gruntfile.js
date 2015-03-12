@@ -58,7 +58,7 @@ module.exports = function(grunt) {
                     src: ['dist/*']
                 }
             }
-        }	   
+        }
     });
 
     //Custom defined tasks
@@ -66,6 +66,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build',  ['clean:dist', 'copy']);
 	
     // concat step 'generates' the js to the dist folder
-    grunt.registerTask('cleanBump', [ 'clean:dist', 'concat:emailjs', 'gitadd', 'bump' ]);	
+    grunt.registerTask('cleanBump', [ 'clean:dist', 'concat:emailjs', 'gitadd', 'bump' ]);
 	
 };
